@@ -1,39 +1,121 @@
-function App() {
-  return (
-    <main className="relative flex min-h-screen flex-col overflow-hidden bg-[#101010]">
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_72%_36%,rgba(190,25,25,0.2),transparent_42%)]" />
-      <header className="relative flex items-center justify-between border-b border-white/10 px-6 py-5 sm:px-10 lg:px-16">
-        <a className="text-xl font-black tracking-[0.12em] text-red-600" href="/">
-          SCREENROOM
-        </a>
-        <span className="text-xs font-medium uppercase tracking-[0.2em] text-white/45">
-          A world of stories
-        </span>
-      </header>
+import { useState } from 'react'
+import heroImg from './assets/hero.png'
+import reactLogo from './assets/react.svg'
+import viteLogo from './assets/vite.svg'
+import './App.css'
 
-      <section className="relative mx-auto flex w-full max-w-7xl flex-1 items-center px-6 py-20 sm:px-10 lg:px-16">
-        <div className="max-w-3xl">
-          <p className="mb-5 text-xs font-semibold uppercase tracking-[0.28em] text-red-500">
-            Your next movie night
+function App() {
+  const [count, setCount] = useState(0)
+
+  return (
+    <>
+      <section id="center">
+        <div className="hero">
+          <img src={heroImg} className="base" width="170" height="179" alt="" />
+          <img src={reactLogo} className="framework" alt="React logo" />
+          <img src={viteLogo} className="vite" alt="Vite logo" />
+        </div>
+        <div>
+          <h1>Get started</h1>
+          <p>
+            Edit <code>src/App.jsx</code> and save to test <code>HMR</code>
           </p>
-          <h1 className="max-w-2xl text-5xl font-semibold leading-[1.05] sm:text-6xl lg:text-7xl">
-            Find a story worth staying in for.
-          </h1>
-          <p className="mt-6 max-w-lg text-base leading-7 text-white/60 sm:text-lg">
-            A fresh screen for the films and series you love. The opening credits
-            start here.
-          </p>
-          <div className="mt-10 flex items-center gap-3 text-sm text-white/45">
-            <span className="h-2 w-2 rounded-full bg-emerald-400" />
-            <span>React and Tailwind are ready</span>
-          </div>
+        </div>
+        <button
+          type="button"
+          className="counter"
+          onClick={() => setCount((count) => count + 1)}
+        >
+          Count is {count}
+        </button>
+      </section>
+
+      <div className="ticks"></div>
+
+      <section id="next-steps">
+        <div id="docs">
+          <svg className="icon" role="presentation" aria-hidden="true">
+            <use href="/icons.svg#documentation-icon"></use>
+          </svg>
+          <h2>Documentation</h2>
+          <p>Your questions, answered</p>
+          <ul>
+            <li>
+              <a href="https://vite.dev/" target="_blank">
+                <img className="logo" src={viteLogo} alt="" />
+                Explore Vite
+              </a>
+            </li>
+            <li>
+              <a href="https://react.dev/" target="_blank">
+                <img className="button-icon" src={reactLogo} alt="" />
+                Learn more
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div id="social">
+          <svg className="icon" role="presentation" aria-hidden="true">
+            <use href="/icons.svg#social-icon"></use>
+          </svg>
+          <h2>Connect with us</h2>
+          <p>Join the Vite community</p>
+          <ul>
+            <li>
+              <a href="https://github.com/vitejs/vite" target="_blank">
+                <svg
+                  className="button-icon"
+                  role="presentation"
+                  aria-hidden="true"
+                >
+                  <use href="/icons.svg#github-icon"></use>
+                </svg>
+                GitHub
+              </a>
+            </li>
+            <li>
+              <a href="https://chat.vite.dev/" target="_blank">
+                <svg
+                  className="button-icon"
+                  role="presentation"
+                  aria-hidden="true"
+                >
+                  <use href="/icons.svg#discord-icon"></use>
+                </svg>
+                Discord
+              </a>
+            </li>
+            <li>
+              <a href="https://x.com/vite_js" target="_blank">
+                <svg
+                  className="button-icon"
+                  role="presentation"
+                  aria-hidden="true"
+                >
+                  <use href="/icons.svg#x-icon"></use>
+                </svg>
+                X.com
+              </a>
+            </li>
+            <li>
+              <a href="https://bsky.app/profile/vite.dev" target="_blank">
+                <svg
+                  className="button-icon"
+                  role="presentation"
+                  aria-hidden="true"
+                >
+                  <use href="/icons.svg#bluesky-icon"></use>
+                </svg>
+                Bluesky
+              </a>
+            </li>
+          </ul>
         </div>
       </section>
 
-      <footer className="relative border-t border-white/10 px-6 py-5 text-xs text-white/35 sm:px-10 lg:px-16">
-        SCREENROOM <span className="px-2">/</span> 2026
-      </footer>
-    </main>
+      <div className="ticks"></div>
+      <section id="spacer"></section>
+    </>
   )
 }
 
