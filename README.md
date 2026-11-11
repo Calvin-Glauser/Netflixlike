@@ -7,7 +7,7 @@ A React streaming-app starter built with Vite and Tailwind CSS v4.
 Install dependencies and start the development server:
 
 ```sh
-npm install
+npm install --ignore-scripts
 npm run dev
 ```
 
