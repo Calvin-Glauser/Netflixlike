@@ -14,10 +14,28 @@ Currently, two official plugins are available:
 - [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
 - [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
 
-## React Compiler
+# Notflix
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+A React and Vite movie browser with preset movie rows and title search. Typing in the search bar switches from browsing rows to a full-page results grid. Clear the query or select the logo to return to browsing.
 
-## Expanding the ESLint configuration
+## Run Locally
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+```sh
+npm install --ignore-scripts
+npm run dev
+```
+
+## Checks
+
+```sh
+npm run build
+npm run lint
+```
+
+## Simplifications
+
+- Kept the browser shell focused on view selection; individual rows, search results, and shared loading/error/result rendering live in small components.
+- Centralized movie requests in `useMovieSearch` and presentation of request states in `MovieResults`, avoiding duplicated fetch and loading/error UI logic.
+- Used movie-specific component names (`MovieList`, `MovieCard`, and `MovieResults`) instead of the old user-directory names.
+- Removed unused tab state. Search text and poster-failure state remain local because each controls a real interaction.
+- Kept one `useEffect` in `useMovieSearch` to synchronize query changes with OMDb. Its debounce and abort cleanup prevent needless requests and stale responses; additional effects would not simplify this flow.

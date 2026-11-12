@@ -1,7 +1,6 @@
 import { useState } from "react"
-import MovieList from "./MovieList"
+import MovieResults from "./MovieResults"
 import SearchBar from "./SearchBar"
-import useMovieSearch from "../hooks/useMovieSearch"
 
 const browseRows = [
   { title: "Spider-Man", query: "Spider-Man" },
@@ -11,35 +10,28 @@ const browseRows = [
 ]
 
 function MovieRow({ title, query, showError }) {
-  const { movies, loading, error } = useMovieSearch(query)
-
   return (
     <section className="movie-row" aria-label={`${title} movies`}>
       <h2>{title}</h2>
-      {error ? (
-        showError ? <p className="browse-error" role="alert">{error}</p> : null
-      ) : loading ? (
-        <p className="row-status">Loading movies...</p>
-      ) : (
-        <MovieList movies={movies} layout="row" />
-      )}
+      <MovieResults
+        query={query}
+        layout="row"
+        loadingMessage="Loading movies..."
+        showError={showError}
+      />
     </section>
   )
 }
 
 function SearchResults({ query }) {
-  const { movies, loading, error } = useMovieSearch(query)
-
   return (
     <main className="page-content search-page">
       <h1>Results for <span>“{query.trim()}”</span></h1>
-      {error ? (
-        <p className="search-message" role="alert">{error}</p>
-      ) : loading ? (
-        <p className="search-message">Searching movies...</p>
-      ) : (
-        <MovieList movies={movies} layout="grid" />
-      )}
+      <MovieResults
+        query={query}
+        layout="grid"
+        loadingMessage="Searching movies..."
+      />
     </main>
   )
 }
