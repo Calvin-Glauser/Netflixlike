@@ -1,55 +1,11 @@
-import { useState, useEffect } from "react"
+import { useState } from "react"
 import SearchBar from "./SearchBar"
-import UserList from "./UserList"
+import MovieList from "./MovieList"
+import useMovieSearch from "../hooks/useMovieSearch"
 
 export default function UserDirectory() {
-  const [movies, setMovies] = useState([])
-  const [loading, setLoading] = useState(true)
-  const [error, setError] = useState(null)
   const [searchTerm, setSearchTerm] = useState("Batman")
-
-  useEffect(() => {
-    const query = searchTerm.trim()
-    if (!query) {
-      return
-    }
-
-    const controller = new AbortController()
-    const timeout = setTimeout(async () => {
-      setLoading(true)
-      setError(null)
-      try {
-        const response = await fetch(
-          `https://www.omdbapi.com/?s=${encodeURIComponent(query)}&type=movie&apikey=2026b80f`,
-          { signal: controller.signal },
-        )
-        if (!response.ok) {
-          if (response.status === 401) {
-            throw new Error("OMDb rejected the API key. Update it to load movie posters.")
-          }
-          throw new Error(`HTTP error! status: ${response.status}`)
-        }
-        const data = await response.json()
-        if (data.Response === "False" && data.Error !== "Movie not found!") {
-          throw new Error(data.Error || "Failed to fetch movies")
-        }
-        setMovies(data.Search || [])
-      } catch (err) {
-        if (err.name !== "AbortError") {
-          setError(err.message || "Failed to fetch movies")
-        }
-      } finally {
-        if (!controller.signal.aborted) {
-          setLoading(false)
-        }
-      }
-    }, 300)
-
-    return () => {
-      clearTimeout(timeout)
-      controller.abort()
-    }
-  }, [searchTerm])
+  const { movies, loading, error } = useMovieSearch(searchTerm)
 
   return (
     <div>
@@ -62,7 +18,7 @@ export default function UserDirectory() {
       ) : loading ? (
         <p>Loading movies...</p>
       ) : (
-        <UserList movies={movies} />
+        <MovieList movies={movies} />
       )}
     </div>
   )

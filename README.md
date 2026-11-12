@@ -2,6 +2,13 @@
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
+## What Was Simplified
+
+- Removed unused tab state and the empty navigation from the app shell.
+- Moved movie fetching, debounce, request cancellation, and API error handling into the `useMovieSearch` hook so the directory component focuses on the interface.
+- Renamed `UserList` and `UserCard` to `MovieList` and `MovieCard` to match the data they display.
+- Kept a single `useEffect` inside the hook to synchronize movie searches with the external API.
+
 Currently, two official plugins are available:
 
 - [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)

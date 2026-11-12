@@ -1,18 +1,22 @@
-export default function SearchBar({ searchTerm, setSearchTerm }) {
+export default function SearchBar({ searchTerm, setSearchTerm, onClear }) {
   return (
-    <input
-      type="text"
-      aria-label="Search movies by title"
-      placeholder="Search movies by title..."
-      value={searchTerm}
-      onChange={(e) => setSearchTerm(e.target.value)}
-      style={{
-        width: "100%",
-        padding: "10px",
-        marginBottom: "20px",
-        fontSize: "16px",
-        border: "1px solid #ccc"
-      }}
-    />
+    <div className="search-control">
+      <span className="search-icon" aria-hidden="true" />
+      <input
+        type="search"
+        aria-label="Search movies by title"
+        placeholder="Titles, people, genres"
+        value={searchTerm}
+        onChange={(event) => setSearchTerm(event.target.value)}
+        onKeyDown={(event) => {
+          if (event.key === "Escape") onClear()
+        }}
+      />
+      {searchTerm && (
+        <button type="button" className="search-clear" onClick={onClear} aria-label="Clear search">
+          ×
+        </button>
+      )}
+    </div>
   )
 }
